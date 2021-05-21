@@ -16,7 +16,10 @@ const Notifications = () => {
             <div className="grey-text">21 May 2021,03:00 PM</div>
           </ul>
 
-          <p>* These are the dummy notifications.</p>
+          <p>
+            * These are the dummy notifications. Firebase cloud function are not
+            in use currently.
+          </p>
         </div>
       </div>
     </div>

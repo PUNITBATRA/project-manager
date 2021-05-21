@@ -1,11 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { firestoreConnect } from "react-redux-firebase";
+import { firestoreConnect, getFirebase } from "react-redux-firebase";
 import { Redirect } from "react-router-dom";
 import moment from "moment";
 const ProjectDetails = (props) => {
   const { project, auth } = props;
+
+  const handleClick = () => {
+    const firestore = getFirebase().firestore();
+    firestore
+      .collection("projects")
+      .doc(props.match.params.id)
+      .delete()
+      .then(() => {
+        alert("Deleted!");
+      })
+      .catch((error) => {
+        console.log("error ", error);
+      });
+  };
+
   if (!auth.uid) return <Redirect to="/signin" />;
 
   if (project) {
@@ -25,6 +40,11 @@ const ProjectDetails = (props) => {
                 ? moment(project.createdAt.toDate()).calendar()
                 : "3rd May, 2020"}
             </div>
+            <div className="input-field">
+              <button className="btn red lighten-1" onClick={handleClick}>
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -32,7 +52,8 @@ const ProjectDetails = (props) => {
   } else {
     return (
       <div className="container center">
-        <p>Loading Project...</p>
+        <p>Loading project......</p>
+        <Redirect to="/" />
       </div>
     );
   }
