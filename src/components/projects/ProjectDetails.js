@@ -13,7 +13,9 @@ class ProjectDetails extends Component {
       .delete()
       .then(() => {
         alert("This Project is Deleted!");
+
         this.props.history.push("/");
+        this.props.history.go(0);
       })
       .catch((error) => {
         console.log("error ", error);
