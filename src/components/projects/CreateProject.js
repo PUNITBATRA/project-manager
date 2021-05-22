@@ -12,15 +12,15 @@ class CreateProject extends Component {
       [e.target.id]: e.target.value,
     });
   };
-  isEmpty = (str) => {
-    return !str.trim().length;
-  };
+
   handleSubmit = (e) => {
     e.preventDefault();
     // console.log(this.state);
     if (this.state.title && this.state.content) {
       this.props.createProject(this.state);
       this.props.history.push("/");
+    } else {
+      alert("Empty fields are not allowed.");
     }
   };
   render() {
